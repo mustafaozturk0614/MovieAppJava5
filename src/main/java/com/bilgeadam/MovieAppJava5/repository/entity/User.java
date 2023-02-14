@@ -21,7 +21,7 @@ public class User {
     @Column(length = 50)
     private String name;
     @Column(length = 50)
-    private String surname;
+    private String surName;
     @Column(length = 50)
     private String email;
     @Column(length = 15)
@@ -35,6 +35,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<MovieComment> comments;
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    @Builder.Default
+    private UserType userType=UserType.USER;
 
 }

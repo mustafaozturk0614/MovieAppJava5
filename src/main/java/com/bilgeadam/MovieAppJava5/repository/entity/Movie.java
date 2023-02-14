@@ -30,7 +30,7 @@ public class Movie {
     private  double rating;
     @Lob
     private  String summary;
-    private LocalDate premired;
+    private LocalDate premiered;
     private String url;
     @OneToMany(mappedBy = "movie")
     private List<MovieComment> comments;

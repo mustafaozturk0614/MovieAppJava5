@@ -19,7 +19,8 @@ public class MovieComment {
     private Long id;
     @Column(length = 500)
     private String content;
-    private LocalDate date;
+    @Builder.Default
+    private LocalDate date=LocalDate.now();
     @ManyToOne
     private User user;
     @ManyToOne
