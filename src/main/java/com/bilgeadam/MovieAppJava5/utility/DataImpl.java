@@ -38,6 +38,7 @@ public class DataImpl  implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         getAllMovies();
+        createUser();
     }
 
 
@@ -94,9 +95,8 @@ public class DataImpl  implements ApplicationRunner {
 
         User user = User.builder().email("mert@hotmail.com").name("Mert").
                 surName("Kaya").password("123").phone("123")
-                .favGenres(genreService.createGenresWithNames(List.of("Drama", "Science-Fiction", "Horror")))
+                .favGenres(genreService.createGenresWithNames(List.of("Drama", "Science-Fiction", "Horror","Documentry")))
                 .favMovies(movieService.findAllByIds(List.of(1l, 10L, 15L, 100L, 50L, 90L, 120L, 148L)))
-
                 .build();
 
 
@@ -105,6 +105,7 @@ public class DataImpl  implements ApplicationRunner {
                 .favMovies(movieService.findAllByIds(List.of(8l, 3L, 17L, 18L, 9L, 85L, 78L, 127L, 1L, 120L, 85L)))
                 .surName("Öztürk").password("123").phone("123")
                 .build();
+
         user1.setComments(List.of(
                 MovieComment.builder().content("iyi").user(user1).movie(movieService.findbyId(78L)).build(),
                 MovieComment.builder().content("iyi").user(user1).movie(movieService.findbyId(120L)).build(),
@@ -130,7 +131,7 @@ public class DataImpl  implements ApplicationRunner {
                 .favGenres(genreService.createGenresWithNames(List.of("Anime", "Comedy", "Supernatural", "Action")))
                 .favMovies(movieService.findAllByIds(List.of(15l, 2L, 1L, 86L, 39L, 32L, 200L, 15L, 106L, 205L, 138L, 48L, 64L, 136L)))
                 .name("Aras").
-                surName("Gr").password("123").phone("123").favGenres(genreService.findByName(List.of("Anime", "Comedy", "Supernatural", "Action"))).build();
+                surName("Gr").password("123").phone("123").favGenres(genreService.createGenresWithNames(List.of("Anime", "Comedy", "Supernatural", "Action"))).build();
         user3.setComments(List.of(
                 MovieComment.builder().content("berbat").user(user3).movie(movieService.findbyId(14L)).build(),
                 MovieComment.builder().content("iyi").user(user3).movie(movieService.findbyId(136L)).build(),

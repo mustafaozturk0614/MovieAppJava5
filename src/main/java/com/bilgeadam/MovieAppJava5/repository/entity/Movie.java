@@ -1,11 +1,13 @@
 package com.bilgeadam.MovieAppJava5.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Movie {
+public class Movie implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,5 +35,6 @@ public class Movie {
     private LocalDate premiered;
     private String url;
     @OneToMany(mappedBy = "movie")
+    @JsonIgnore
     private List<MovieComment> comments;
 }

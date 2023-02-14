@@ -1,5 +1,6 @@
 package com.bilgeadam.MovieAppJava5.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,10 +30,12 @@ public class User {
     @Column(length = 32)
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Movie> favMovies;
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Genre> favGenres;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<MovieComment> comments;
     @Enumerated(EnumType.STRING)
     @Builder.Default
