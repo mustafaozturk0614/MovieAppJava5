@@ -21,4 +21,15 @@ public class MovieController {
     public ResponseEntity<List<Movie>> findAll(){
         return ResponseEntity.ok(movieService.findAll());
     }
+
+    @GetMapping("/findbyrate")
+    public   ResponseEntity<List<Movie>>  findAllByRatingGreaterThan(double rate){
+        return ResponseEntity.ok(movieService.findAllByRatingGreaterThan(rate));
+    }
+    @GetMapping("/findbyusersgenres")
+    public ResponseEntity<List<Movie>>  findMoviesByUsersGenres(Long id){
+        return ResponseEntity.ok(movieService.findMoviesByUsersGenres(id));
+    }
+
+
 }

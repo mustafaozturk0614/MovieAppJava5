@@ -5,9 +5,11 @@ import com.bilgeadam.MovieAppJava5.repository.IUserRepository;
 import com.bilgeadam.MovieAppJava5.repository.entity.User;
 import com.bilgeadam.MovieAppJava5.repository.entity.UserType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +31,7 @@ public class UserService {
                    .password(password)
                    .build();
        }catch (Exception e){
-           System.out.println("Boyle bir Kullanýcý turu bulunmamaktadýr");
+           System.out.println("Boyle bir KullanÄ±cÄ± turu bulunmamaktadÄ±r");
            user= User.builder()
                    .name(name)
                    .surName(surname)
@@ -53,5 +55,56 @@ public class UserService {
         userRepository.saveAll(users);
 
 
+    }
+
+    public  List<User> findAllByOrderByName(){
+
+        return userRepository.findAllByOrderByName();
+    }
+
+    public List<User> findAllByNameLike(String name){
+
+        return userRepository.findAllByNameLike(name);
+    }
+
+   public List<User> findAllByEmailContainingIgnoreCase(String value){
+        return  userRepository.findAllByEmailContainingIgnoreCase(value);
+    }
+
+   public List<User> findAllByEmailEndingWith(String value){
+
+        return userRepository.findAllByEmailEndingWith(value);
+    }
+
+    public Boolean existsByEmailAndPassword(String email,String password){
+
+        return userRepository.existsByEmailAndPassword(email,password);
+    }
+
+    public User findOptionalByEmailAndPassword(String email, String password) throws Exception {
+
+        Optional<User> user=userRepository.findOptionalByEmailAndPassword(email,password);
+
+        if (user.isPresent()){
+            return user.get();
+        }else{
+            throw new Exception("Kullanï¿½cï¿½ Bulunamadï¿½");
+        }
+
+    }
+
+    public   List<User> passwordLongerThan(int length){
+
+        return userRepository.passwordLongerThan(length);
+    }
+
+    public     List<User> passwordControl( int length){
+
+        return  userRepository.passwordControl(length);
+    }
+
+    public Optional<User> findById(Long id) {
+
+        return  userRepository.findById(id);
     }
 }

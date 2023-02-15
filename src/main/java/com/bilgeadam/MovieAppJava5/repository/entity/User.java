@@ -41,4 +41,6 @@ public class User {
     @Builder.Default
     private UserType userType=UserType.USER;
 
+
+
 }
