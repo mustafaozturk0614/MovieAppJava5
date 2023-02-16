@@ -8,6 +8,7 @@ import com.bilgeadam.MovieAppJava5.repository.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,34 +28,50 @@ public class MovieService {
     }
 
     public List<Movie> findAllByIds(List<Long> ids) {
-      return   ids.stream().map(x->movieRepository.findById(x).get()).collect(Collectors.toList());
+        return ids.stream().map(x -> movieRepository.findById(x).get()).collect(Collectors.toList());
     }
 
     public Movie findbyId(long id) {
-        Optional<Movie> movie=movieRepository.findById(id);
-        if (movie.isPresent()){
+        Optional<Movie> movie = movieRepository.findById(id);
+        if (movie.isPresent()) {
             return movie.get();
-        }else{
-            throw  new RuntimeException("KLullanýcý bulunamadý");
+        } else {
+            throw new RuntimeException("KLullanýcý bulunamadý");
         }
     }
 
     public List<Movie> findAll() {
-        return  movieRepository.findAll();
+        return movieRepository.findAll();
     }
 
-    public  List<Movie> findAllByRatingGreaterThan(double rate){
+    public List<Movie> findAllByRatingGreaterThan(double rate) {
 
         return movieRepository.findAllByRatingGreaterThan(rate);
     }
 
-    public List<Movie> findMoviesByUsersGenres(Long id){
-        Optional<User> user= userService.findById(id);
-        if (user.isPresent()){
-            List<Genre> genres=user.get().getFavGenres();
-            return  movieRepository.findAllByGenresInOrderByRatingDesc(genres);
-        }else{
+    public List<Movie> findMoviesByUsersGenres(Long id) {
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()) {
+            List<Genre> genres = user.get().getFavGenres();
+            return movieRepository.findAllByGenresInOrderByRatingDesc(genres);
+        } else {
             throw new RuntimeException("Kullanýcý bulunamadý");
         }
+    }
+
+    public List<Movie> findAllByPremieredBefore(String date) {
+        return movieRepository.findAllByPremieredBefore(LocalDate.parse(date));
+    }
+
+    public Object [] searchByRating(double rating){
+
+        return movieRepository.searchByRating(rating);
+
+    }
+
+    public List<Object> searchByRating(){
+
+        return movieRepository.searchByRating();
+
     }
 }

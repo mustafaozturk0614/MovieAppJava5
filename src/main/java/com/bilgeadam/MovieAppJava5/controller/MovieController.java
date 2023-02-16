@@ -30,6 +30,17 @@ public class MovieController {
     public ResponseEntity<List<Movie>>  findMoviesByUsersGenres(Long id){
         return ResponseEntity.ok(movieService.findMoviesByUsersGenres(id));
     }
+    @GetMapping("/findbydatebefore")
+ public   ResponseEntity<List<Movie>>   findAllByPremieredBefore(String date){
+        return ResponseEntity.ok(movieService.findAllByPremieredBefore(date));
+    }
 
-
+    @GetMapping("/searchbeyrating")
+    public ResponseEntity<Object []>  searchByRating(double rating){
+        return  ResponseEntity.ok( movieService.searchByRating(rating));
+    }
+    @GetMapping("/searchbeyrating2")
+    public ResponseEntity<List<Object> >   searchByRating(){
+        return ResponseEntity.ok( movieService.searchByRating());
+    }
 }
