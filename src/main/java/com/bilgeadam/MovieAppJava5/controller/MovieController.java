@@ -43,4 +43,26 @@ public class MovieController {
     public ResponseEntity<List<Object> >   searchByRating(){
         return ResponseEntity.ok( movieService.searchByRating());
     }
+
+    @GetMapping("/countbyrating")
+    public  ResponseEntity<Integer> countAllByRating(double rating){
+
+        return  ResponseEntity.ok(  movieService.countAllByRating(rating));
+    }
+    @GetMapping("/findbymyratings")
+    public ResponseEntity< List<Movie> >findAllByMyRatingIn(){
+
+        return ResponseEntity.ok(movieService.findAllByMyRatingIn());
+    }
+    @GetMapping("/findbynames")
+    public    ResponseEntity< List<Movie>> findAllByNameIn(String[] names){
+        return  ResponseEntity.ok(movieService.findAllByNameIn(names));
+    }
+
+    @GetMapping("/countbycountry")
+    public ResponseEntity <Object []> searchByCountry(){
+
+        return ResponseEntity.ok( movieService.searchByCountry());
+    }
+
 }

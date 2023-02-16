@@ -36,7 +36,7 @@ public class MovieService {
         if (movie.isPresent()) {
             return movie.get();
         } else {
-            throw new RuntimeException("KLullanýcý bulunamadý");
+            throw new RuntimeException("KLullanÄ±cÄ± bulunamadÄ±");
         }
     }
 
@@ -55,7 +55,7 @@ public class MovieService {
             List<Genre> genres = user.get().getFavGenres();
             return movieRepository.findAllByGenresInOrderByRatingDesc(genres);
         } else {
-            throw new RuntimeException("Kullanýcý bulunamadý");
+            throw new RuntimeException("KullanÄ±cÄ± bulunamadÄ±");
         }
     }
 
@@ -74,4 +74,26 @@ public class MovieService {
         return movieRepository.searchByRating();
 
     }
+
+    public  int countAllByRating(double rating){
+
+        return  movieRepository.countAllByRating(rating);
+    }
+
+  public  List<Movie> findAllByMyRatingIn(){
+        List<Double> ratings=List.of(7D,8D,9D);
+        return movieRepository.findAllByRatingIn(ratings);
+    }
+
+  public    List<Movie> findAllByNameIn(String[] names){
+
+        return movieRepository.findAllByNameIn(names);
+  }
+
+  public Object [] searchByCountry(){
+
+        return movieRepository.searchByCountry();
+  }
+
+
 }
