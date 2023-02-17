@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -22,6 +23,16 @@ public interface IMovieCommentRepository extends JpaRepository<MovieComment,Long
 
     List<MovieComment> findAllByUser_Id(Long userId);
 
+    List<MovieComment> findAllByDateBetweenAndUser_Id(LocalDate start,LocalDate end,Long userId );
 
+    List<MovieComment> findAllByDateBetweenAndMovie_Id(LocalDate start,LocalDate end,Long movieId);
+
+    List<MovieComment> findAllByContentContainingIgnoreCase(String value);
+
+    @Query("select m from MovieComment as m where length(m.content)>?1")
+    List<MovieComment> findAllByContentSize(int length);
+
+    @Query("select distinct (m.content) from MovieComment as m where length(m.content)>?1")
+    List<String> findAllByContentSizeString(int length);
 
 }

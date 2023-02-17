@@ -30,7 +30,7 @@ public class Movie implements Serializable {
     private  String name;
     private  String country;
     private  double rating;
-    @Lob
+    @Column(length = 2048)
     private  String summary;
     private LocalDate premiered;
     private String url;

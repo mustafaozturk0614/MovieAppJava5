@@ -1,5 +1,8 @@
 package com.bilgeadam.MovieAppJava5.controller;
 
+import com.bilgeadam.MovieAppJava5.dto.request.UserRegisterRequestDto;
+import com.bilgeadam.MovieAppJava5.dto.response.UserFindAllResponseDto;
+import com.bilgeadam.MovieAppJava5.dto.response.UserRegisterResponseDto;
 import com.bilgeadam.MovieAppJava5.repository.entity.User;
 import com.bilgeadam.MovieAppJava5.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +21,29 @@ public class UserController {
 
     private final UserService userService;
 
+
+
+    @GetMapping("/register")
+    public  ResponseEntity<UserRegisterResponseDto> register(UserRegisterRequestDto dto){
+        return  ResponseEntity.ok(userService.register(dto));
+    }
+    @GetMapping("/register2")
+    public  ResponseEntity<UserRegisterResponseDto> register2(UserRegisterRequestDto dto){
+        return  ResponseEntity.ok(userService.register2(dto));
+    }
+    @GetMapping("/findbyid")
+    public ResponseEntity<User> findById(Long id){
+
+        return ResponseEntity.ok(userService.findById(id).get());
+    }
+
+
     @GetMapping("/create")
     public User createUser(String name,String surname,String email,String phone,String password,String userType){
       return   userService.createUser(name,surname,email,phone,password,userType);
     }
     @GetMapping("/findall")
-    public List<User> findAll(){
+    public List<UserFindAllResponseDto> findAll(){
 
         return userService.findAll();
     }

@@ -1,5 +1,9 @@
 package com.bilgeadam.MovieAppJava5.service;
 
+import com.bilgeadam.MovieAppJava5.dto.request.UserRegisterRequestDto;
+import com.bilgeadam.MovieAppJava5.dto.response.UserFindAllResponseDto;
+import com.bilgeadam.MovieAppJava5.dto.response.UserRegisterResponseDto;
+import com.bilgeadam.MovieAppJava5.mapper.IUserMapper;
 import com.bilgeadam.MovieAppJava5.repository.IMovieRepository;
 import com.bilgeadam.MovieAppJava5.repository.IUserRepository;
 import com.bilgeadam.MovieAppJava5.repository.entity.User;
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,8 +51,26 @@ public class UserService {
 
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+
+
+    public List<UserFindAllResponseDto> findAll() {
+
+      return userRepository.findAll().stream().map(x->{
+             return UserFindAllResponseDto.builder()
+                     .id(x.getId())
+                     .name(x.getName())
+                     .surName(x.getSurName())
+                     .userType(x.getUserType())
+                     .phone(x.getPhone())
+                     .email(x.getEmail())
+                     .favMovies(x.getFavMovies())
+                     .genres(x.getFavGenres())
+                     .movieCommentsContent(x.getComments().stream()
+                             .map(y->y.getContent()).collect(Collectors.toList()))
+                     .commentMap(x.getComments().stream()
+                             .collect(Collectors.toMap(z->z.getMovie().getName(),t->t.getContent())))
+                     .build();
+         }).collect(Collectors.toList());
     }
 
     public void saveAll(List<User> users) {
@@ -105,6 +128,33 @@ public class UserService {
 
     public Optional<User> findById(Long id) {
 
-        return  userRepository.findById(id);
+       Optional<User> user= userRepository.findById(id);
+
+        System.out.println(user.get().getName());
+        return user;
+    }
+
+    public UserRegisterResponseDto register(UserRegisterRequestDto dto) {
+        User user= User.builder()
+                .name(dto.getName())
+                .surName(dto.getSurName())
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .build();
+       userRepository.save(user);
+
+        return UserRegisterResponseDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .surName(user.getSurName())
+                .userType(user.getUserType())
+                .email(user.getEmail())
+                .build();
+    }
+
+    public UserRegisterResponseDto register2(UserRegisterRequestDto dto) {
+        User user= IUserMapper.INSTANCE.toUser(dto);
+        userRepository.save(user);
+        return IUserMapper.INSTANCE.toUserRegisterResponseDto(user);
     }
 }
