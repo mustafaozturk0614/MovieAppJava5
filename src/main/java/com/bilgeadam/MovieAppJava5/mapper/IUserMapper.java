@@ -1,9 +1,12 @@
 package com.bilgeadam.MovieAppJava5.mapper;
 
 import com.bilgeadam.MovieAppJava5.dto.request.UserRegisterRequestDto;
+import com.bilgeadam.MovieAppJava5.dto.response.LoginResponseDto;
+import com.bilgeadam.MovieAppJava5.dto.response.UserFindAllResponseDto;
 import com.bilgeadam.MovieAppJava5.dto.response.UserRegisterResponseDto;
 import com.bilgeadam.MovieAppJava5.repository.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
@@ -18,5 +21,5 @@ public interface IUserMapper {
 
     UserRegisterResponseDto toUserRegisterResponseDto(final User user);
 
-
+    LoginResponseDto toLoginResponseDto(final User user);
 }

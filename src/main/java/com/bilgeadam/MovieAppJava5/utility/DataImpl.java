@@ -37,7 +37,7 @@ public class DataImpl  implements ApplicationRunner {
     private final GenreService genreService;
     @Override
     public void run(ApplicationArguments args) throws Exception {
-//       getAllMovies();
+//     getAllMovies();
 //       createUser();
     }
 
@@ -103,7 +103,7 @@ public class DataImpl  implements ApplicationRunner {
         User user1 = User.builder().email("merve@gmail.com").name("Merve")
                 .favGenres(genreService.createGenresWithNames(List.of("Drama", "Action", "Romance")))
                 .favMovies(movieService.findAllByIds(List.of(8l, 3L, 17L, 18L, 9L, 85L, 78L, 127L, 1L, 120L, 85L)))
-                .surName("�zt�rk").password("123").phone("123")
+                .surName("Ozturk").password("123").phone("123")
                 .build();
 
         user1.setComments(List.of(
@@ -143,7 +143,7 @@ public class DataImpl  implements ApplicationRunner {
         User user4 = User.builder()
                 .favMovies(movieService.findAllByIds(List.of(51l, 212L, 81L, 86L, 139L, 52L, 20L, 105L, 126L, 25L, 18L, 4L, 6L, 126L)))
                 .email("didem@gmail.com").name("Didem")
-                .surName("S�nmez").password("123").phone("123")
+                .surName("Sonmez").password("123").phone("123")
                 .favGenres(genreService.createGenresWithNames(List.of("Anime", "Action", "Mystery", "Supernatural"))).build();
 
         user4.setComments(List.of(
@@ -153,7 +153,7 @@ public class DataImpl  implements ApplicationRunner {
         ));
 
         User user5 = User.builder().email("admin@gmail.com").name("Mustafa").
-                surName("�zt�rk").userType(UserType.ADMIN).password("admin").phone("123")
+                surName("Ozturk").userType(UserType.ADMIN).password("admin").phone("123")
                 .favGenres(genreService.createGenresWithNames(List.of("Science-Fiction", "Drama", "Music", "Anime")))
                 .favMovies(movieService.findAllByIds(List.of(14l, 22L, 106L, 88L, 104L, 66L, 20L, 104L, 126L, 25L, 13L, 4L, 69L, 47L, 200L)))
 

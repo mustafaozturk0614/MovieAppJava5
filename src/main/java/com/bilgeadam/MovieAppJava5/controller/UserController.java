@@ -1,16 +1,15 @@
 package com.bilgeadam.MovieAppJava5.controller;
 
+import com.bilgeadam.MovieAppJava5.dto.request.LoginRequestDto;
 import com.bilgeadam.MovieAppJava5.dto.request.UserRegisterRequestDto;
+import com.bilgeadam.MovieAppJava5.dto.response.LoginResponseDto;
 import com.bilgeadam.MovieAppJava5.dto.response.UserFindAllResponseDto;
 import com.bilgeadam.MovieAppJava5.dto.response.UserRegisterResponseDto;
 import com.bilgeadam.MovieAppJava5.repository.entity.User;
 import com.bilgeadam.MovieAppJava5.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -84,6 +83,13 @@ public class UserController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+
+    @PostMapping("/login3")
+    public  ResponseEntity<LoginResponseDto> login(@RequestBody  LoginRequestDto dto){
+        return   ResponseEntity.ok(userService.login(dto));
+    }
+
+
 
     @GetMapping("/passwordcontrol")
     public  ResponseEntity< List<User>> passwordLongerThan(int length){

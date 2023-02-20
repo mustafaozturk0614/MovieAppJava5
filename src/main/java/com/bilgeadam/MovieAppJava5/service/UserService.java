@@ -1,6 +1,8 @@
 package com.bilgeadam.MovieAppJava5.service;
 
+import com.bilgeadam.MovieAppJava5.dto.request.LoginRequestDto;
 import com.bilgeadam.MovieAppJava5.dto.request.UserRegisterRequestDto;
+import com.bilgeadam.MovieAppJava5.dto.response.LoginResponseDto;
 import com.bilgeadam.MovieAppJava5.dto.response.UserFindAllResponseDto;
 import com.bilgeadam.MovieAppJava5.dto.response.UserRegisterResponseDto;
 import com.bilgeadam.MovieAppJava5.mapper.IUserMapper;
@@ -10,6 +12,7 @@ import com.bilgeadam.MovieAppJava5.repository.entity.User;
 import com.bilgeadam.MovieAppJava5.repository.entity.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,6 +57,9 @@ public class UserService {
 
 
     public List<UserFindAllResponseDto> findAll() {
+
+
+
 
       return userRepository.findAll().stream().map(x->{
              return UserFindAllResponseDto.builder()
@@ -156,5 +162,28 @@ public class UserService {
         User user= IUserMapper.INSTANCE.toUser(dto);
         userRepository.save(user);
         return IUserMapper.INSTANCE.toUserRegisterResponseDto(user);
+    }
+
+    public LoginResponseDto login(LoginRequestDto dto) {
+
+        Optional<User> user=userRepository
+                .findOptionalByEmailAndPassword(dto.getEmail(), dto.getPassword());
+
+          if (user.isPresent()){
+
+                return IUserMapper.INSTANCE.toLoginResponseDto(user.get());
+//              return LoginResponseDto.builder()
+//                      .userType(user.get().getUserType())
+//                      .name(user.get().getName())
+//                      .surName(user.get().getSurName())
+//                      .email(user.get().getEmail())
+//                      .build();
+
+
+          }else{
+              throw new RuntimeException("kullanıcı adı veya şifre hatalı");
+          }
+
+
     }
 }
