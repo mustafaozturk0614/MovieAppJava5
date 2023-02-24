@@ -73,7 +73,6 @@ public class UserController {
     }
 
     @GetMapping("/login2")
-
     public ResponseEntity<?> login(String email,String password){
 
         try {
@@ -89,7 +88,10 @@ public class UserController {
         return   ResponseEntity.ok(userService.login(dto));
     }
 
-
+    @GetMapping("/login4")
+    public  ResponseEntity<LoginResponseDto> login4( LoginRequestDto dto){
+        return   ResponseEntity.ok(userService.login(dto));
+    }
 
     @GetMapping("/passwordcontrol")
     public  ResponseEntity< List<User>> passwordLongerThan(int length){

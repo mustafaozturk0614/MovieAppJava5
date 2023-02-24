@@ -5,6 +5,8 @@ import com.bilgeadam.MovieAppJava5.dto.request.UserRegisterRequestDto;
 import com.bilgeadam.MovieAppJava5.dto.response.LoginResponseDto;
 import com.bilgeadam.MovieAppJava5.dto.response.UserFindAllResponseDto;
 import com.bilgeadam.MovieAppJava5.dto.response.UserRegisterResponseDto;
+import com.bilgeadam.MovieAppJava5.exception.ErrorType;
+import com.bilgeadam.MovieAppJava5.exception.MovieAppException;
 import com.bilgeadam.MovieAppJava5.mapper.IUserMapper;
 import com.bilgeadam.MovieAppJava5.repository.IMovieRepository;
 import com.bilgeadam.MovieAppJava5.repository.IUserRepository;
@@ -179,9 +181,8 @@ public class UserService {
 //                      .email(user.get().getEmail())
 //                      .build();
 
-
           }else{
-              throw new RuntimeException("kullanıcı adı veya şifre hatalı");
+              throw  new MovieAppException(ErrorType.USER_NOT_FOUND);
           }
 
 
